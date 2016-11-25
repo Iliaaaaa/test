@@ -218,9 +218,9 @@ function create_config( )
   config = {
     enabled_plugins = {
 	"botmanager",
-    "bc",
+	"tabchi"
     },
-    sudo_users = {122774063},--Sudo users
+    sudo_users = {115472981},--Sudo users
     moderation = {data = 'data/moderation.json'},
   }
   serialize_to_file(config, './data/config.lua')
