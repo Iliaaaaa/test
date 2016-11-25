@@ -1,0 +1,50 @@
+#!/bin/bash
+function tg {
+    echo "Installing The Script"
+    sudo printf "respawn\nrespawn limit 15 5\n\nstart on runlevel [2345]\nstop on shutdown\n\nsetuid yourusername\nexec /bin/sh telegrambotpath/launch.sh" >> /etc/init/tg.conf
+    sudo sed -i "s/yourusername/$(whoami)/g" /etc/init/tg.conf
+    sudo sed -i "s_telegrambotpath_$(pwd)_g" /etc/init/tg.conf
+	echo "Script Installed"
+}
+function run {
+	sudo stop tg
+	sudo killall telegram-cli
+	sudo start tg
+}
+f=3 b=4
+for j in f b; do
+  for i in {0..7}; do
+    printf -v $j$i %b "\e[${!j}${i}m"
+  done
+done
+bld=$'\e[1m'
+rst=$'\e[0m'
+clear
+cat << EOF
+ $bld$f1▄ ▀▄   ▄▀ ▄   $f2 ▄▄▄████▄▄▄    $f3  ▄██▄     $f4▄ ▀▄   ▄▀ ▄   $f5 ▄▄▄████▄▄▄    $f6  ▄██▄  $rst
+ $bld$f1█▄█▀███▀█▄█   $f2███▀▀██▀▀███   $f3▄█▀██▀█▄   $f4█▄█▀███▀█▄█   $f5███▀▀██▀▀███   $f6▄█▀██▀█▄$rst
+ $bld$f1▀█████████▀   $f2▀▀▀██▀▀██▀▀▀   $f3▀▀█▀▀█▀▀   $f4▀█████████▀   $f5▀▀▀██▀▀██▀▀▀   $f6▀▀█▀▀█▀▀$rst
+ $bld$f1 ▄▀     ▀▄    $f2▄▄▀▀ ▀▀ ▀▀▄▄   $f3▄▀▄▀▀▄▀▄   $f4 ▄▀     ▀▄    $f5▄▄▀▀ ▀▀ ▀▀▄▄   $f6▄▀▄▀▀▄▀▄$rst
+EOF
+echo "________________________________________________________________________________"
+echo -e "			\e[0;36m _ _____\e[0m"
+echo -e "			\e[1;37m(_)_   _|__  __ _ _ __ ___\e[0m"
+echo -e "			\e[0;33m| | | |/ _ \/ _| | '_ _ _ \\"
+echo -e "			\e[0;32m| | | |  __/ (_| | | | | | |\e[0m"
+echo -e "			\e[0;35m|_| |_|\___|\__,_|_| |_| |_|\e[0m"
+echo "________________________________________________________________________________"
+cat << EOF
+ $bld$f1▄ ▀▄   ▄▀ ▄   $f2 ▄▄▄████▄▄▄    $f3  ▄██▄     $f4▄ ▀▄   ▄▀ ▄   $f5 ▄▄▄████▄▄▄    $f6  ▄██▄  $rst
+ $bld$f1█▄█▀███▀█▄█   $f2███▀▀██▀▀███   $f3▄█▀██▀█▄   $f4█▄█▀███▀█▄█   $f5███▀▀██▀▀███   $f6▄█▀██▀█▄$rst
+ $bld$f1▀█████████▀   $f2▀▀▀██▀▀██▀▀▀   $f3▀▀█▀▀█▀▀   $f4▀█████████▀   $f5▀▀▀██▀▀██▀▀▀   $f6▀▀█▀▀█▀▀$rst
+ $bld$f1 ▄▀     ▀▄    $f2▄▄▀▀ ▀▀ ▀▀▄▄   $f3▄▀▄▀▀▄▀▄   $f4 ▄▀     ▀▄    $f5▄▄▀▀ ▀▀ ▀▀▄▄   $f6▄▀▄▀▀▄▀▄$rst
+EOF
+ls /etc/init | grep tg.conf
+if [ $? != 0 ]; then
+  echo -e "Script Not Installed"
+  tg
+fi
+while true; do
+	run
+	sleep 15
+done
